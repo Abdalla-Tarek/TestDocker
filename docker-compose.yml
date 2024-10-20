@@ -1,0 +1,39 @@
+#version: '3.8'
+services:
+  webapp:
+    build: .
+    restart: always
+    container_name: webappcontainer
+    ports:
+      - "8089:80"
+    networks:
+      - net1
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserverhost;Database=MyTestDb;User Id=sa;Password=123456Aa.;Trust Server Certificate=true;
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    container_name: sqlservercontainer
+    ports:
+      - "8087:1433"
+    hostname: sqlserverhost
+    networks:
+      - net1
+    volumes:
+      - sqldataVol:/var/opt/mssql
+    # volumes:
+    #   - sqldataVol:/C/MyVolume:/var/opt/mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "123456Aa."
+
+# Networks
+networks:
+  net1:
+
+# Volumes
+volumes:
+  sqldataVol:
