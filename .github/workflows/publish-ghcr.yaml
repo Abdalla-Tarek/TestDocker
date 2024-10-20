@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        run: docker login ghcr.io -u Abdalla-Tarek -p ${{secrets.DOCKER_PASS}}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/Abdalla-Tarek/webapp:latest .
+          docker push ghcr.io/Abdalla-Tarek/webapp:latest
