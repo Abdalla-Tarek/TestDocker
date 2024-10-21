@@ -42,9 +42,9 @@ namespace TestDocker.Controllers
             if (!_context.Products.Any())
             {
                 _context.Products.AddRange(
-                    new Product { Name = "Product 1", Price = 9.99m },
-                    new Product { Name = "Product 2", Price = 19.99m },
-                    new Product { Name = "Product 3", Price = 29.99m }
+                    new Product { Name = "Product A", Price = 9.99m },
+                    new Product { Name = "Product B", Price = 19.99m },
+                    new Product { Name = "Product C", Price = 29.99m }
                 );
                 _context.SaveChanges();
             }
